@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+    color: black;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    transition: background 2s linear, color 2s linear;
+    overflow: hidden;
+}
+
+#void {
+    max-width: 80%;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+#nothingness {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    #nothingness {
+        font-size: 1rem;
+    }
+}

@@ -4,11 +4,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #000000;
-    color: white;
+    background: #ffffff;
+    color: black;
     font-family: Arial, sans-serif;
     text-align: center;
-    transition: background 10s linear;
+    transition: background 2s linear, color 2s linear;
     overflow: hidden;
 }
 

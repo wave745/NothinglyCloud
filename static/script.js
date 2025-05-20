@@ -8,12 +8,16 @@ const voidLevels = [
     { time: 300, title: "Enlightened Nothingist" }
 ];
 
-// Background gets darker over time
+// Background gets darker over time - faster transition
 function darkenVoid() {
-    const minutes = (Date.now() - startTime) / 60000;
-    // Fixed the syntax error in the original code
-    const darkness = Math.min(20, Math.floor(minutes * 2));
-    document.body.style.backgroundColor = `rgb(${20 - darkness}, ${20 - darkness}, ${20 - darkness})`;
+    const seconds = (Date.now() - startTime) / 1000;
+    // Make transition much faster - use seconds instead of minutes
+    const brightness = Math.max(0, 255 - Math.floor(seconds * 25)); // Faster darkening
+    document.body.style.backgroundColor = `rgb(${brightness}, ${brightness}, ${brightness})`;
+    
+    // Also transition text color as background darkens
+    const textBrightness = Math.min(255, Math.floor(seconds * 25));
+    document.body.style.color = `rgb(${textBrightness}, ${textBrightness}, ${textBrightness})`;
 }
 
 // Update nothingness level
@@ -29,99 +33,6 @@ function updateLevel() {
         `Level of Nothingness: ${currentLevel}`;
 }
 
-// Sound toggle with Tone.js
-const soundBtn = document.getElementById("sound-btn");
-let soundPlaying = false;
-
-// Create ambient sound using Tone.js
-const ambientSound = {
-    synth: null,
-    noise: null,
-    
-    initialize: function() {
-        // Create a synth for deep hum
-        this.synth = new Tone.FMSynth({
-            harmonicity: 0.5,
-            modulationIndex: 10,
-            oscillator: {
-                type: "sine"
-            },
-            envelope: {
-                attack: 1,
-                decay: 0.2,
-                sustain: 0.8,
-                release: 1.5
-            },
-            modulation: {
-                type: "sine"
-            },
-            modulationEnvelope: {
-                attack: 0.5,
-                decay: 0,
-                sustain: 1,
-                release: 0.5
-            }
-        }).toDestination();
-        
-        // Create a noise generator for ambient texture
-        this.noise = new Tone.Noise({
-            type: "brown",
-            volume: -35
-        }).toDestination();
-        
-        // Add effects
-        const reverb = new Tone.Reverb({
-            decay: 5,
-            wet: 0.6
-        }).toDestination();
-        
-        this.synth.connect(reverb);
-        this.noise.connect(reverb);
-    },
-    
-    start: function() {
-        // Start audio context on user interaction
-        if (Tone.context.state !== 'running') {
-            Tone.context.resume();
-        }
-        
-        // Start ambient sound
-        this.synth.triggerAttack("C1");
-        this.noise.start();
-        
-        // Set up a low note every 8 seconds for variation
-        Tone.Transport.scheduleRepeat((time) => {
-            this.synth.setNote("G0", time);
-            setTimeout(() => {
-                this.synth.setNote("C1");
-            }, 3000);
-        }, "8n");
-        
-        Tone.Transport.start();
-    },
-    
-    stop: function() {
-        this.synth.triggerRelease();
-        this.noise.stop();
-        Tone.Transport.stop();
-    }
-};
-
-// Initialize ambient sound
-ambientSound.initialize();
-
-soundBtn.addEventListener("click", () => {
-    if (!soundPlaying) {
-        ambientSound.start();
-        soundBtn.textContent = "🔊 Disable Nothingscape";
-        soundPlaying = true;
-    } else {
-        ambientSound.stop();
-        soundBtn.textContent = "🔇 Enable Nothingscape";
-        soundPlaying = false;
-    }
-});
-
 // Check for refresh (performance API)
 if (performance.navigation && performance.navigation.type === 1) {
     alert("You broke the Nothing.\nPlease wait 24 hours to re-enter the Void.");
@@ -133,17 +44,17 @@ if (performance.navigation && performance.navigation.type === 1) {
     }
 }
 
-// Update every second
+// Update more frequently for faster transition
 setInterval(() => {
     darkenVoid();
     updateLevel();
-}, 1000);
+}, 100); // Update every 100ms for smoother transition
 
-// Add a subtle fade-in effect on page load
+// Add a quick fade-in effect on page load
 document.addEventListener('DOMContentLoaded', () => {
     document.body.style.opacity = 0;
     setTimeout(() => {
-        document.body.style.transition = 'opacity 2s ease-in';
+        document.body.style.transition = 'opacity 0.5s ease-in';
         document.body.style.opacity = 1;
     }, 100);
 });

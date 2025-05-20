@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nothingly</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="description" content="Experience digital nothingness with Nothingly">
+</head>
+<body>
+    <div id="void">
+        <h1>You are experiencing Nothingly.</h1>
+        <div id="nothingness">Level of Nothingness: Novice Nihilist</div>
+    </div>
+    <button id="sound-btn">🔇 Enable Nothingscape</button>
+    
+    <!-- Use Tone.js for audio -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

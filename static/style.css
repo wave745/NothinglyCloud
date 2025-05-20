@@ -31,24 +31,6 @@ h1 {
     opacity: 0.8;
 }
 
-#sound-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: transparent;
-    border: 1px solid white;
-    color: white;
-    padding: 8px 15px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    border-radius: 3px;
-}
-
-#sound-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
 /* Responsive styles */
 @media (max-width: 768px) {
     h1 {
@@ -57,12 +39,5 @@ h1 {
     
     #nothingness {
         font-size: 1rem;
-    }
-    
-    #sound-btn {
-        bottom: 15px;
-        right: 15px;
-        padding: 6px 12px;
-        font-size: 0.8rem;
     }
 }
